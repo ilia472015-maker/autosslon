@@ -3,17 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Авторынок</title>
+<title>АвтоРынок</title>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;}
   body { background: #0f1115; color: #fff; padding-bottom: 30px; min-height: 100vh; overflow-x: hidden; }
   
   /* Шапка */
-  header { position: sticky; top:0; z-index:10; background: rgba(26,29,36,0.95); backdrop-filter: blur(10px); padding: 14px 16px; display:flex; justify-content:space-between; align-items:center; box-shadow: 0 2px 12px rgba(0,0,0,.5); }
-  header h1 { font-size: 18px; letter-spacing:.5px; }
+  header { position: sticky; top:0; z-index:10; background: rgba(26,29,36,0.95); backdrop-filter: blur(10px); padding: 12px 16px; display:flex; justify-content:space-between; align-items:center; box-shadow: 0 2px 12px rgba(0,0,0,.5); gap: 10px; }
+  header h1 { font-size: 16px; letter-spacing:.5px; white-space: nowrap; }
   header h1 span { color:#4da3ff; }
-  .header-wallet { background:#1e2a3a; padding:8px 14px; border-radius:20px; font-size:14px; font-weight:600; color:#4da3ff; border:1px solid #2c4a6e; display:flex; align-items:center; gap:6px; cursor:pointer; }
-  .header-wallet:active { transform: scale(0.95); }
+  
+  .header-right { display: flex; gap: 8px; align-items: center; }
+  .header-wallet, .header-garage { background:#1e2a3a; padding:8px 12px; border-radius:20px; font-size:13px; font-weight:600; color:#4da3ff; border:1px solid #2c4a6e; display:flex; align-items:center; gap:4px; cursor:pointer; transition: 0.2s; }
+  .header-wallet:active, .header-garage:active { transform: scale(0.95); }
+  .header-garage { color: #ffd94d; border-color: #5c4a1e; background: #2a241e; }
 
   /* Сетка машин */
   .cars { padding:16px; display:flex; flex-direction:column; gap:18px; }
@@ -27,38 +30,39 @@
   .price { font-size:18px; font-weight:800; color:#ffd94d; }
   .buy-btn { background:linear-gradient(135deg,#4da3ff,#2f7de0); border:none; color:#fff; padding:12px 22px; border-radius:12px; font-size:14px; font-weight:700; cursor:pointer; transition: transform .12s; flex-shrink:0; }
   .buy-btn:active { transform:scale(.94); }
-  .buy-btn:disabled { opacity:.45; background: #333; }
 
   /* Модальные окна */
   .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.3s; }
   .modal-overlay.active { display: flex; opacity: 1; }
-  .modal-content { background: #1c2029; width: 100%; max-width: 400px; border-radius: 20px; padding: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); border: 1px solid #2c3443; transform: translateY(20px); transition: transform 0.3s; max-height: 90vh; overflow-y: auto; }
+  .modal-content { background: #1c2029; width: 100%; max-width: 420px; border-radius: 24px; padding: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); border: 1px solid #2c3443; transform: translateY(20px); transition: transform 0.3s; max-height: 90vh; overflow-y: auto; }
   .modal-overlay.active .modal-content { transform: translateY(0); }
   .modal-title { font-size: 20px; font-weight: 800; margin-bottom: 10px; text-align: center; }
   .modal-text { color: #8b93a3; text-align: center; margin-bottom: 20px; font-size: 14px; }
   
-  /* Кнопки в модалке */
-  .pay-btn { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 16px; background: #232833; border: 1px solid #333; border-radius: 12px; margin-bottom: 10px; cursor: pointer; color: #fff; font-size: 15px; font-weight: 600; transition: 0.2s; }
-  .pay-btn:active { background: #2c3443; }
-  .pay-btn .icon { font-size: 20px; margin-right: 10px; }
-  .pay-btn .amount { color: #4da3ff; font-size: 13px; }
+  /* Окно подтверждения */
+  .confirm-img { width: 100%; height: 180px; object-fit: cover; border-radius: 16px; margin-bottom: 15px; }
+  .confirm-price { font-size: 26px; font-weight: 900; color: #ffd94d; text-align: center; margin-bottom: 20px; }
+  .confirm-btn { width: 100%; padding: 16px; border: none; border-radius: 14px; font-size: 16px; font-weight: 800; cursor: pointer; margin-bottom: 10px; transition: 0.2s; }
+  .confirm-btn:active { transform: scale(0.97); }
+  .btn-green { background: #22c55e; color: #fff; box-shadow: 0 4px 15px rgba(34,197,94,0.4); }
+  .btn-blue { background: #3b82f6; color: #fff; box-shadow: 0 4px 15px rgba(59,130,246,0.4); }
+  .btn-grey { background: #2c3443; color: #fff; }
+
+  /* Кнопки в модалке пополнения */
+  .deposit-btn { width: 100%; padding: 15px; background: #232833; border: 1px solid #333; border-radius: 12px; margin-bottom: 10px; cursor: pointer; color: #fff; font-size: 16px; font-weight: 700; text-align: left; display: flex; justify-content: space-between; }
+  .deposit-btn:active { background: #2c3443; }
+  .deposit-btn span:last-child { color: #22c55e; }
+
+  /* Мои покупки */
+  .garage-item { display: flex; align-items: center; background: #232833; border-radius: 12px; padding: 10px; margin-bottom: 10px; border: 1px solid #333; }
+  .garage-img { width: 70px; height: 50px; object-fit: cover; border-radius: 8px; margin-right: 12px; }
+  .garage-info { flex-grow: 1; }
+  .garage-name { font-size: 15px; font-weight: 700; }
+  .garage-price { font-size: 12px; color: #ffd94d; }
+
   .close-btn { width: 100%; padding: 14px; background: transparent; border: none; color: #8b93a3; font-size: 15px; font-weight: 600; margin-top: 10px; cursor: pointer; }
 
-  /* Карточки в модалке смены карты */
-  .card-item { display: flex; align-items: center; padding: 16px; background: #232833; border-radius: 12px; margin-bottom: 10px; border: 1px solid #333; cursor: pointer; }
-  .card-item.active { border-color: #4da3ff; background: #1e2a3a; }
-  .card-icon { width: 40px; height: 30px; background: linear-gradient(135deg, #4da3ff, #2f7de0); border-radius: 6px; margin-right: 15px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; }
-  .card-info { flex-grow: 1; }
-  .card-name { font-size: 15px; font-weight: 700; }
-  .card-num { font-size: 12px; color: #8b93a3; }
-
-  /* Кнопки в кошельке */
-  .wallet-action { width: 100%; padding: 15px; background: #22c55e; border: none; border-radius: 12px; color: #fff; font-size: 15px; font-weight: 700; margin-bottom: 10px; cursor: pointer; text-align: left; display: flex; justify-content: space-between; }
-  .wallet-action:active { transform: scale(0.98); }
-  .wallet-action.blue { background: #3b82f6; }
-  .wallet-action.red { background: #ef4444; }
-
-  /* Уведомление (Toast) */
+  /* Уведомление */
   .toast { position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(20px); background:#232833; color:#fff; padding:12px 22px; border-radius:12px; font-size:14px; font-weight:600; opacity:0; pointer-events:none; transition:.3s; z-index:300; border:1px solid #2f3a4a; box-shadow:0 6px 20px rgba(0,0,0,.5); white-space:nowrap; }
   .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 </style>
@@ -67,139 +71,102 @@
 
 <header>
   <h1>🏁 Авто<span>Рынок</span></h1>
-  <div class="header-wallet" id="walletBtn">
-    <span>💳</span>
-    <span id="balance">0 ₽</span>
+  <div class="header-right">
+    <div class="header-garage" id="garageBtn">🏆 Гараж</div>
+    <div class="header-wallet" id="walletBtn">
+      <span id="balance">0 ₽</span>
+    </div>
   </div>
 </header>
 
 <div class="cars" id="cars"></div>
 
-<!-- Окно оплаты -->
+<!-- Окно ПОДТВЕРЖДЕНИЯ покупки -->
 <div class="modal-overlay" id="payModal">
   <div class="modal-content">
     <div class="modal-title" id="payModalTitle">Покупка</div>
-    <div class="modal-text" id="payModalText">Выберите способ оплаты</div>
+    <img src="" id="confirmImg" class="confirm-img">
+    <div class="modal-text" id="payModalText">Характеристики...</div>
+    <div class="confirm-price" id="payModalPrice">0 ₽</div>
     
-    <button class="pay-btn" id="payWithCard">
-      <div style="display:flex; align-items:center;">
-        <span class="icon">💳</span>
-        <div style="text-align:left;">
-          <div>Банковская карта</div>
-          <div class="amount" id="payCardAmount">0 ₽</div>
-        </div>
-      </div>
+    <button class="confirm-btn btn-green" id="payWithCard">
+      💳 Оплатить с карты
     </button>
     
-    <button class="pay-btn" id="payWithBonus">
-      <div style="display:flex; align-items:center;">
-        <span class="icon">🎁</span>
-        <div style="text-align:left;">
-          <div>Бонусный счет</div>
-          <div class="amount" id="payBonusAmount">0 ₽</div>
-        </div>
-      </div>
+    <button class="confirm-btn btn-blue" id="payWithBonus">
+      🎁 Оплатить бонусами
     </button>
     
-    <button class="close-btn" id="closePayModal">Отмена</button>
+    <button class="confirm-btn btn-grey" id="closePayModal">Отмена</button>
   </div>
 </div>
 
-<!-- Окно кошелька (Карты + Пополнение) -->
-<div class="modal-overlay" id="walletModal">
+<!-- Окно ПОПОЛНЕНИЯ -->
+<div class="modal-overlay" id="depositModal">
   <div class="modal-content">
-    <div class="modal-title">Мой Кошелек</div>
+    <div class="modal-title">Пополнение счета</div>
+    <div class="modal-text">Выберите сумму для зачисления</div>
     
-    <div class="modal-text" style="margin-bottom: 15px;">Выберите карту для оплаты:</div>
+    <button class="deposit-btn" data-amount="100000"><span>+ 100 000 ₽</span><span>💵</span></button>
+    <button class="deposit-btn" data-amount="500000"><span>+ 500 000 ₽</span><span>💵</span></button>
+    <button class="deposit-btn" data-amount="1000000"><span>+ 1 000 000 ₽</span><span>💵</span></button>
+    <button class="deposit-btn" data-amount="5000000"><span>+ 5 000 000 ₽</span><span>💵</span></button>
     
-    <div class="card-item active" id="card1">
-      <div class="card-icon">VISA</div>
-      <div class="card-info">
-        <div class="card-name">Visa Platinum</div>
-        <div class="card-num">•••• 4321</div>
-      </div>
+    <div style="margin-top: 15px; border-top: 1px solid #333; padding-top: 15px;">
+        <button class="deposit-btn" id="addBonusBtn"><span>🎁 + 100 000 бонусов</span><span>✨</span></button>
     </div>
     
-    <div class="card-item" id="card2">
-      <div class="card-icon" style="background: linear-gradient(135deg, #ff4d4d, #e02f2f);">MC</div>
-      <div class="card-info">
-        <div class="card-name">MasterCard Gold</div>
-        <div class="card-num">•••• 8765</div>
-      </div>
-    </div>
+    <button class="close-btn" id="closeDepositModal">Закрыть</button>
+  </div>
+</div>
 
-    <div style="margin-top: 20px; border-top: 1px solid #333; padding-top: 20px;">
-      <div class="modal-text" style="margin-bottom: 15px;">Пополнение и бонусы:</div>
-      
-      <button class="wallet-action" id="addMoneyBtn">
-        <span>💰 Добавить 1 000 000 ₽</span>
-        <span>+</span>
-      </button>
-      
-      <button class="wallet-action blue" id="addBonusBtn">
-        <span>🎁 Получить 100 000 бонусов</span>
-        <span>+</span>
-      </button>
-      
-      <button class="wallet-action red" id="resetBtn" style="margin-top: 20px;">
-        <span>🗑 Сбросить весь прогресс</span>
-      </button>
-    </div>
-    
-    <button class="close-btn" id="closeWalletModal" style="margin-top: 10px;">Закрыть</button>
+<!-- Окно МОИ ПОКУПКИ (Гараж) -->
+<div class="modal-overlay" id="garageModal">
+  <div class="modal-content">
+    <div class="modal-title">Мой Гараж</div>
+    <div class="modal-text" id="garageEmptyText" style="display:none;">У вас пока нет купленных машин</div>
+    <div id="garageList"></div>
+    <button class="close-btn" id="closeGarageModal">Закрыть</button>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-  // Данные (транспорт: бюджетный, битый, мото, грузовики и суперкары)
+  // Данные машин (с точными картинками)
   const cars = [
-    // Бюджетные и битые
-    { id:1, name:"ВАЗ 2107", desc:"Бюджетный седан • 1.6 л • 75 л.с. • 2005 год", price:100000, img:"https://images.unsplash.com/photo-1590522013916-719f9f8b8a1a?w=800&q=80" },
-    { id:2, name:"Daewoo Matiz", desc:"Городской хэтчбек • 0.8 л • 51 л.с. • 2010 год", price:250000, img:"https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&q=80" },
-    { id:3, name:"ВАЗ 2106 (Битый)", desc:"После ДТП • Требует ремонта • На запчасти", price:50000, img:"https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&q=80" },
-    { id:4, name:"Ford Focus (Разбит)", desc:"Разбит передок • Двигатель цел • 2008 год", price:150000, img:"https://images.unsplash.com/photo-1590362891991-f776e747a588?w=800&q=80" },
-
-    // Мотоциклы
-    { id:5, name:"Yamaha YZF-R1", desc:"Спортбайк • 1.0 л • 200 л.с. • 2021 год", price:1200000, img:"https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=800&q=80" },
-    { id:6, name:"Harley-Davidson", desc:"Круизер • 1.8 л • 90 л.с. • 2020 год", price:1800000, img:"https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=800&q=80" },
-
-    // Грузовые и автобусы
-    { id:7, name:"КамАЗ 5490", desc:"Тягач • Дизель • 400 л.с. • 2019 год", price:4500000, img:"https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80" },
-    { id:8, name:"ПАЗ Вектор Next", desc:"Автобус • Дизель • 25 мест • 2021 год", price:3200000, img:"https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&q=80" },
-
-    // Обычные машины
-    { id:9, name:"Toyota Camry", desc:"Бизнес-седан • 2.5 л • 200 л.с. • 2022 год", price:3500000, img:"https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&q=80" },
-    { id:10, name:"BMW M4 Competition", desc:"3.0 л • 510 л.с. • Разгон 3.5 сек • 2023 год", price:7500000, img:"https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80" },
-    { id:11, name:"Mercedes-Benz G-Class", desc:"4.0 л V8 • 585 л.с. • Разгон 4.5 сек • 2022 год", price:12500000, img:"https://images.unsplash.com/photo-1520031441872-265e4ff70366?w=800&q=80" },
-    
-    // Премиум и спорт
-    { id:12, name:"Porsche 911 Turbo S", desc:"3.8 л Flat-6 • 650 л.с. • Разгон 2.7 сек • 2022 год", price:15900000, img:"https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80" },
-    { id:13, name:"Lamborghini Huracán", desc:"5.2 л V10 • 640 л.с. • Разгон 2.9 сек • 2022 год", price:21000000, img:"https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&q=80" },
-    { id:14, name:"Ferrari 488 GTB", desc:"3.9 л V8 • 670 л.с. • Разгон 3.0 сек • 2021 год", price:24500000, img:"https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=800&q=80" }
+    { id:1, name:"ВАЗ 2107", desc:"Бюджетный седан • 1.6 л • 75 л.с. • 2005 г.", price:100000, img:"https://images.unsplash.com/photo-1590522013916-719f9f8b8a1a?w=800&q=80" },
+    { id:2, name:"Daewoo Matiz", desc:"Городской хэтчбек • 0.8 л • 51 л.с. • 2010 г.", price:250000, img:"https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&q=80" },
+    { id:3, name:"ВАЗ 2106 (Битый)", desc:"После ДТП • На запчасти", price:50000, img:"https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&q=80" },
+    { id:4, name:"Ford Focus (Разбит)", desc:"Разбит передок • Двигатель цел • 2008 г.", price:150000, img:"https://images.unsplash.com/photo-1590362891991-f776e747a588?w=800&q=80" },
+    { id:5, name:"Yamaha YZF-R1", desc:"Спортбайк • 1.0 л • 200 л.с. • 2021 г.", price:1200000, img:"https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=800&q=80" },
+    { id:6, name:"Harley-Davidson", desc:"Круизер • 1.8 л • 90 л.с. • 2020 г.", price:1800000, img:"https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=800&q=80" },
+    { id:7, name:"КамАЗ 5490", desc:"Тягач • Дизель • 400 л.с. • 2019 г.", price:4500000, img:"https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80" },
+    { id:8, name:"ПАЗ Вектор Next", desc:"Автобус • Дизель • 25 мест • 2021 г.", price:3200000, img:"https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&q=80" },
+    { id:9, name:"Toyota Camry", desc:"Бизнес-седан • 2.5 л • 200 л.с. • 2022 г.", price:3500000, img:"https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&q=80" },
+    { id:10, name:"BMW M4 Competition", desc:"3.0 л • 510 л.с. • 2023 г.", price:7500000, img:"https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80" },
+    { id:11, name:"Mercedes-Benz G-Class", desc:"4.0 л V8 • 585 л.с. • 2022 г.", price:12500000, img:"https://images.unsplash.com/photo-1520031441872-265e4ff70366?w=800&q=80" },
+    { id:12, name:"Porsche 911 Turbo S", desc:"3.8 л • 650 л.с. • 2022 г.", price:15900000, img:"https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80" },
+    { id:13, name:"Lamborghini Huracán", desc:"5.2 л V10 • 640 л.с. • 2022 г.", price:21000000, img:"https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&q=80" },
+    { id:14, name:"Ferrari 488 GTB", desc:"3.9 л V8 • 670 л.с. • 2021 г.", price:24500000, img:"https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=800&q=80" }
   ];
 
   // Состояние
-  let balance = parseInt(localStorage.getItem('salonBalance')) || 50000; // Даем 50к на старт
+  let balance = parseInt(localStorage.getItem('salonBalance')) || 50000;
   let bonuses = parseInt(localStorage.getItem('salonBonuses')) || 0; 
   const bought = new Set(JSON.parse(localStorage.getItem('salonBought') || '[]'));
   let currentBuyCar = null;
-  let selectedCard = localStorage.getItem('salonCard') || 'card1';
 
   // Элементы
   const fmt = n => n.toLocaleString('ru-RU') + ' ₽';
   const balEl = document.getElementById('balance');
   const carsEl = document.getElementById('cars');
   const toastEl = document.getElementById('toast');
-  const payModal = document.getElementById('payModal');
-  const walletModal = document.getElementById('walletModal');
 
   function save() {
     localStorage.setItem('salonBalance', balance);
     localStorage.setItem('salonBonuses', bonuses);
     localStorage.setItem('salonBought', JSON.stringify([...bought]));
-    localStorage.setItem('salonCard', selectedCard);
   }
 
   function showToast(msg) {
@@ -210,13 +177,18 @@
   }
 
   function render() {
-    // Обновляем кошелек в шапке
+    // Обновляем кошелек
     balEl.innerHTML = `${fmt(balance)} <span style="font-size:11px; color:#22c55e; margin-left: 4px;">+${fmt(bonuses)}</span>`;
     
-    // Рендер транспорта
+    // Рендер машин (только тех, что НЕ куплены)
     carsEl.innerHTML = '';
-    cars.forEach(car => {
-      const isBought = bought.has(car.id);
+    let availableCars = cars.filter(car => !bought.has(car.id));
+    
+    if (availableCars.length === 0) {
+        carsEl.innerHTML = '<div style="text-align:center; color:#8b93a3; padding: 40px 0;">Вы скупили весь авторынок! 🏆</div>';
+    }
+
+    availableCars.forEach(car => {
       const div = document.createElement('div');
       div.className = 'car';
       div.innerHTML = `
@@ -226,9 +198,7 @@
           <div class="car-desc">${car.desc}</div>
           <div class="car-bottom">
             <div class="price">${fmt(car.price)}</div>
-            <button class="buy-btn" data-id="${car.id}" ${isBought ? 'disabled' : ''}>
-              ${isBought ? '✅ Куплено' : 'Купить'}
-            </button>
+            <button class="buy-btn" data-id="${car.id}">Купить</button>
           </div>
         </div>`;
       carsEl.appendChild(div);
@@ -237,25 +207,48 @@
     carsEl.querySelectorAll('.buy-btn').forEach(btn => {
       btn.addEventListener('click', () => openPayModal(parseInt(btn.dataset.id)));
     });
+
+    // Рендер гаража
+    const garageList = document.getElementById('garageList');
+    const garageEmptyText = document.getElementById('garageEmptyText');
+    garageList.innerHTML = '';
+    
+    if (bought.size === 0) {
+      garageEmptyText.style.display = 'block';
+    } else {
+      garageEmptyText.style.display = 'none';
+      cars.filter(c => bought.has(c.id)).forEach(car => {
+        garageList.innerHTML += `
+          <div class="garage-item">
+            <img src="${car.img}" class="garage-img">
+            <div class="garage-info">
+              <div class="garage-name">${car.name}</div>
+              <div class="garage-price">Куплено за ${fmt(car.price)}</div>
+            </div>
+          </div>
+        `;
+      });
+    }
   }
 
-  // Открытие окна оплаты
+  // Открытие окна подтверждения
   function openPayModal(id) {
     const car = cars.find(c => c.id === id);
     if (!car || bought.has(id)) return;
     
     currentBuyCar = car;
     document.getElementById('payModalTitle').textContent = car.name;
-    document.getElementById('payModalText').textContent = `Стоимость: ${fmt(car.price)}`;
-    document.getElementById('payCardAmount').textContent = `Доступно: ${fmt(balance)}`;
-    document.getElementById('payBonusAmount').textContent = `Доступно: ${fmt(bonuses)}`;
+    document.getElementById('confirmImg').src = car.img;
+    document.getElementById('payModalText').textContent = car.desc;
+    document.getElementById('payModalPrice').textContent = `Цена: ${fmt(car.price)}`;
     
-    payModal.classList.add('active');
+    document.getElementById('payModal').classList.add('active');
   }
 
   // Закрытие окон
-  document.getElementById('closePayModal').onclick = () => payModal.classList.remove('active');
-  document.getElementById('closeWalletModal').onclick = () => walletModal.classList.remove('active');
+  document.getElementById('closePayModal').onclick = () => document.getElementById('payModal').classList.remove('active');
+  document.getElementById('closeDepositModal').onclick = () => document.getElementById('depositModal').classList.remove('active');
+  document.getElementById('closeGarageModal').onclick = () => document.getElementById('garageModal').classList.remove('active');
 
   // Оплата картой
   document.getElementById('payWithCard').onclick = () => {
@@ -265,11 +258,11 @@
       return;
     }
     balance -= currentBuyCar.price;
-    const cashback = currentBuyCar.price * 0.05; // 5% бонусами
+    const cashback = currentBuyCar.price * 0.05;
     bonuses += cashback;
     bought.add(currentBuyCar.id);
     save(); render();
-    payModal.classList.remove('active');
+    document.getElementById('payModal').classList.remove('active');
     showToast(`🎉 Куплено! Кэшбэк: ${fmt(cashback)}`);
   };
 
@@ -283,45 +276,28 @@
     bonuses -= currentBuyCar.price;
     bought.add(currentBuyCar.id);
     save(); render();
-    payModal.classList.remove('active');
+    document.getElementById('payModal').classList.remove('active');
     showToast(`🎉 Куплено за бонусы!`);
   };
 
-  // Меню кошелька
-  document.getElementById('walletBtn').onclick = () => walletModal.classList.add('active');
+  // Открытие кошелька и гаража
+  document.getElementById('walletBtn').onclick = () => document.getElementById('depositModal').classList.add('active');
+  document.getElementById('garageBtn').onclick = () => document.getElementById('garageModal').classList.add('active');
 
-  // Выбор карты
-  document.getElementById('card1').onclick = () => {
-    selectedCard = 'card1';
-    document.getElementById('card1').classList.add('active');
-    document.getElementById('card2').classList.remove('active');
-    save(); showToast('Выбрана карта Visa');
-  };
-  document.getElementById('card2').onclick = () => {
-    selectedCard = 'card2';
-    document.getElementById('card2').classList.add('active');
-    document.getElementById('card1').classList.remove('active');
-    save(); showToast('Выбрана карта MasterCard');
-  };
-
-  // Кнопки внутри кошелька
-  document.getElementById('addMoneyBtn').onclick = () => {
-    balance += 1000000;
-    save(); render();
-    showToast('+1 000 000 ₽ зачислено');
-  };
+  // Пополнение
+  document.querySelectorAll('.deposit-btn[data-amount]').forEach(btn => {
+    btn.onclick = () => {
+      const amount = parseInt(btn.dataset.amount);
+      balance += amount;
+      save(); render();
+      showToast(`+${fmt(amount)} зачислено`);
+    };
+  });
 
   document.getElementById('addBonusBtn').onclick = () => {
     bonuses += 100000;
     save(); render();
     showToast('+100 000 бонусов зачислено');
-  };
-
-  document.getElementById('resetBtn').onclick = () => {
-    if (confirm("Вы уверены, что хотите сбросить весь прогресс?")) {
-      localStorage.clear();
-      location.reload();
-    }
   };
 
   // Инициализация
