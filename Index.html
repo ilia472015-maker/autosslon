@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Автосалон</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0f1115;
+    color: #fff;
+    padding-bottom: 90px;
+    min-height: 100vh;
+  }
+  header {
+    position: sticky; top:0; z-index:10;
+    background: linear-gradient(135deg,#1a1d24,#232833);
+    padding: 14px 16px;
+    display:flex; justify-content:space-between; align-items:center;
+    box-shadow: 0 2px 12px rgba(0,0,0,.5);
+  }
+  header h1 { font-size: 18px; letter-spacing:.5px; }
+  header h1 span { color:#4da3ff; }
+  .balance {
+    background:#1e2a3a; padding:8px 14px; border-radius:20px;
+    font-size:14px; font-weight:600; color:#4da3ff;
+    border:1px solid #2c4a6e;
+    white-space:nowrap;
+  }
+  .cars { padding:16px; display:flex; flex-direction:column; gap:18px; }
+  .car {
+    background:#181b22; border-radius:18px; overflow:hidden;
+    box-shadow:0 6px 20px rgba(0,0,0,.45);
+    border:1px solid #232833;
+    animation: fadeIn .4s ease;
+  }
+  @keyframes fadeIn { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:none;} }
+  .car img { width:100%; height:190px; object-fit:cover; display:block; }
+  .car-info { padding:14px 16px 16px; }
+  .car-name { font-size:17px; font-weight:700; margin-bottom:4px; }
+  .car-desc { font-size:13px; color:#8b93a3; margin-bottom:12px; }
+  .car-bottom { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+  .price { font-size:18px; font-weight:800; color:#ffd94d; }
+  .buy-btn {
+    background:linear-gradient(135deg,#4da3ff,#2f7de0);
+    border:none; color:#fff; padding:11px 20px; border-radius:12px;
+    font-size:14px; font-weight:700; cursor:pointer;
+    transition: transform .12s, opacity .2s;
+    flex-shrink:0;
+  }
+  .buy-btn:active { transform:scale(.94); }
+  .buy-btn:disabled { opacity:.45; }
+  .fab {
+    position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
+    width:calc(100% - 32px); max-width:420px;
+    background:linear-gradient(135deg,#22c55e,#16a34a);
+    border:none; color:#fff; padding:16px; border-radius:16px;
+    font-size:16px; font-weight:800; cursor:pointer;
+    box-shadow:0 8px 24px rgba(34,197,94,.4);
+    transition: transform .12s;
+    z-index:20;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+  }
+  .fab:active { transform:translateX(-50%) scale(.96); }
+  .toast {
+    position:fixed; bottom:100px; left:50%; transform:translateX(-50%) translateY(20px);
+    background:#232833; color:#fff; padding:12px 22px; border-radius:12px;
+    font-size:14px; font-weight:600; opacity:0; pointer-events:none;
+    transition:.3s; z-index:30; border:1px solid #2f3a4a;
+    box-shadow:0 6px 20px rgba(0,0,0,.5);
+    white-space:nowrap; max-width:90vw; overflow:hidden; text-overflow:ellipsis;
+  }
+  .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🚗 Авто<span>Салон</span></h1>
+  <div class="balance" id="balance">0 ₽</div>
+</header>
+
+<div class="cars" id="cars"></div>
+
+<button class="fab" id="addMoney">💰 Добавить деньги</button>
+<div class="toast" id="toast"></div>
+
+<script>
+  const cars = [
+    { id:1, name:"BMW M4 Competition", desc:"3.0 л • 510 л.с. • 2023", price:7500000,
+      img:"https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80" },
+    { id:2, name:"Mercedes-Benz G-Class", desc:"4.0 л • 585 л.с. • 2022", price:12500000,
+      img:"https://images.unsplash.com/photo-1520031441872-265e4ff70366?w=800&q=80" },
+    { id:3, name:"Audi RS7 Sportback", desc:"4.0 л • 600 л.с. • 2023", price:9800000,
+      img:"https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=80" },
+    { id:4, name:"Porsche 911 Turbo S", desc:"3.8 л • 650 л.с. • 2022", price:15900000,
+      img:"https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80" },
+    { id:5, name:"Tesla Model S Plaid", desc:"Электро • 1020 л.с. • 2023", price:8900000,
+      img:"https://images.unsplash.com/photo-1617788138017-80ad40651399?w=800&q=80" },
+    { id:6, name:"Lamborghini Huracán", desc:"5.2 л • 640 л.с. • 2022", price:21000000,
+      img:"https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&q=80" }
+  ];
+
+  let balance = parseInt(localStorage.getItem('salonBalance')) || 0;
+  const bought = new Set(JSON.parse(localStorage.getItem('salonBought') || '[]'));
+
+  const fmt = n => n.toLocaleString('ru-RU') + ' ₽';
+  const balEl = document.getElementById('balance');
+  const carsEl = document.getElementById('cars');
+  const toastEl = document.getElementById('toast');
+
+  function save() {
+    localStorage.setItem('salonBalance', balance);
+    localStorage.setItem('salonBought', JSON.stringify([...bought]));
+  }
+
+  function showToast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(showToast.t);
+    showToast.t = setTimeout(() => toastEl.classList.remove('show'), 2000);
+  }
+
+  function render() {
+    balEl.textContent = fmt(balance);
+    carsEl.innerHTML = '';
+    cars.forEach(car => {
+      const isBought = bought.has(car.id);
+      const canAfford = balance >= car.price;
+      const div = document.createElement('div');
+      div.className = 'car';
+      div.innerHTML = `
+        <img src="${car.img}" alt="${car.name}" loading="lazy"
+             onerror="this.src='https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=800&q=80'">
+        <div class="car-info">
+          <div class="car-name">${car.name}</div>
+          <div class="car-desc">${car.desc}</div>
+          <div class="car-bottom">
+            <div class="price">${fmt(car.price)}</div>
+            <button class="buy-btn" data-id="${car.id}"
+              ${isBought ? 'disabled' : ''}>
+              ${isBought ? '✅ Куплено' : (canAfford ? 'Купить' : 'Купить')}
+            </button>
+          </div>
+        </div>`;
+      carsEl.appendChild(div);
+    });
+
+    carsEl.querySelectorAll('.buy-btn').forEach(btn => {
+      btn.addEventListener('click', () => buy(parseInt(btn.dataset.id)));
+    });
+  }
+
+  function buy(id) {
+    const car = cars.find(c => c.id === id);
+    if (!car || bought.has(id)) return;
+    if (balance < car.price) {
+      showToast(`Не хватает ${fmt(car.price - balance)}`);
+      return;
+    }
+    balance -= car.price;
+    bought.add(id);
+    save();
+    render();
+    showToast(`🎉 Куплено: ${car.name}`);
+  }
+
+  document.getElementById('addMoney').addEventListener('click', () => {
+    balance += 1000000;
+    save();
+    render();
+    showToast('+1 000 000 ₽');
+  });
+
+  render();
+</script>
+</body>
+</html>
