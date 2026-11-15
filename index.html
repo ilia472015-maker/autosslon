@@ -8,7 +8,6 @@
   * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;}
   body { background: #0f1115; color: #fff; min-height: 100vh; overflow-x: hidden; }
   
-  /* ЭКРАН ЗАСТАВКИ */
   #splashScreen { position: fixed; top:0; left:0; width:100%; height:100%; background: linear-gradient(135deg, #0f1115, #1a2233); z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s, visibility 0.5s; }
   #splashScreen.hidden { opacity: 0; visibility: hidden; }
   .splash-title { font-size: 38px; font-weight: 900; margin-bottom: 10px; text-shadow: 0 4px 20px rgba(77,163,255,0.4); }
@@ -17,11 +16,9 @@
   .splash-btn { background: linear-gradient(135deg, #4da3ff, #2f7de0); border: none; color: #fff; padding: 16px 40px; border-radius: 16px; font-size: 18px; font-weight: 800; cursor: pointer; box-shadow: 0 8px 30px rgba(77,163,255,0.4); transition: transform 0.2s; }
   .splash-btn:active { transform: scale(0.95); }
 
-  /* ОСНОВНОЙ САЙТ */
   #mainContent { display: none; padding-bottom: 30px; }
   #mainContent.visible { display: block; animation: fadeIn 0.5s ease; }
 
-  /* Шапка */
   header { position: sticky; top:0; z-index:10; background: rgba(26,29,36,0.95); backdrop-filter: blur(10px); padding: 12px 16px; display:flex; justify-content:space-between; align-items:center; box-shadow: 0 2px 12px rgba(0,0,0,.5); gap: 10px; }
   header h1 { font-size: 16px; letter-spacing:.5px; white-space: nowrap; }
   header h1 span { color:#4da3ff; }
@@ -31,7 +28,6 @@
   .header-wallet:active, .header-garage:active { transform: scale(0.95); }
   .header-garage { color: #ffd94d; border-color: #5c4a1e; background: #2a241e; }
 
-  /* Сетка машин */
   .cars { padding:16px; display:flex; flex-direction:column; gap:18px; }
   .car { background:#181b22; border-radius:18px; overflow:hidden; box-shadow:0 6px 20px rgba(0,0,0,.45); border:1px solid #232833; animation: fadeIn .4s ease; cursor: pointer; }
   @keyframes fadeIn { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:none;} }
@@ -44,7 +40,6 @@
   .buy-btn { background:linear-gradient(135deg,#4da3ff,#2f7de0); border:none; color:#fff; padding:12px 22px; border-radius:12px; font-size:14px; font-weight:700; cursor:pointer; transition: transform .12s; flex-shrink:0; }
   .buy-btn:active { transform:scale(.94); }
 
-  /* Модальные окна */
   .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.3s; }
   .modal-overlay.active { display: flex; opacity: 1; }
   .modal-content { background: #1c2029; width: 100%; max-width: 420px; border-radius: 24px; padding: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); border: 1px solid #2c3443; transform: translateY(20px); transition: transform 0.3s; max-height: 90vh; overflow-y: auto; }
@@ -52,19 +47,16 @@
   .modal-title { font-size: 20px; font-weight: 800; margin-bottom: 10px; text-align: center; }
   .modal-text { color: #8b93a3; text-align: center; margin-bottom: 20px; font-size: 14px; }
   
-  /* Окно подробной информации */
   .detail-img { width: 100%; height: 220px; object-fit: cover; border-radius: 16px; margin-bottom: 15px; }
   .detail-desc { font-size: 15px; line-height: 1.5; color: #ccc; margin-bottom: 20px; padding: 15px; background: #232833; border-radius: 12px; }
   .detail-price { font-size: 28px; font-weight: 900; color: #ffd94d; text-align: center; margin-bottom: 20px; }
 
-  /* Кнопки в модалках */
   .confirm-btn { width: 100%; padding: 16px; border: none; border-radius: 14px; font-size: 16px; font-weight: 800; cursor: pointer; margin-bottom: 10px; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;}
   .confirm-btn:active { transform: scale(0.97); }
   .btn-green { background: #22c55e; color: #fff; box-shadow: 0 4px 15px rgba(34,197,94,0.4); }
   .btn-blue { background: #3b82f6; color: #fff; box-shadow: 0 4px 15px rgba(59,130,246,0.4); }
   .btn-grey { background: #2c3443; color: #fff; }
 
-  /* БАНКОВСКИЕ КАРТОЧКИ */
   .bank-card { background: linear-gradient(135deg, #2b3a55, #162135); border-radius: 16px; padding: 20px; margin-bottom: 15px; border: 2px solid #3d5073; position: relative; overflow: hidden; cursor: pointer; transition: 0.2s; }
   .bank-card:active { transform: scale(0.98); }
   .bank-card.selected { border-color: #4da3ff; box-shadow: 0 0 15px rgba(77,163,255,0.3); }
@@ -76,12 +68,10 @@
   .bank-number { font-size: 16px; letter-spacing: 2px; margin-bottom: 5px; font-family: monospace; }
   .bank-balance { font-size: 12px; color: #ccc; }
 
-  /* Кнопки пополнения */
   .deposit-btn { width: 100%; padding: 15px; background: #232833; border: 1px solid #333; border-radius: 12px; margin-bottom: 10px; cursor: pointer; color: #fff; font-size: 16px; font-weight: 700; text-align: left; display: flex; justify-content: space-between; transition: 0.2s; }
   .deposit-btn:active { background: #2c3443; transform: scale(0.98); }
   .deposit-btn span:last-child { color: #22c55e; }
 
-  /* Мои покупки */
   .garage-item { display: flex; align-items: center; background: #232833; border-radius: 12px; padding: 10px; margin-bottom: 10px; border: 1px solid #333; gap: 10px; }
   .garage-img { width: 70px; height: 50px; object-fit: cover; border-radius: 8px; flex-shrink: 0;}
   .garage-info { flex-grow: 1; }
@@ -92,7 +82,6 @@
 
   .close-btn { width: 100%; padding: 14px; background: transparent; border: none; color: #8b93a3; font-size: 15px; font-weight: 600; margin-top: 10px; cursor: pointer; }
 
-  /* Уведомление */
   .toast { position:fixed; top:20px; left:50%; transform:translateX(-50%) translateY(-20px); background:#232833; color:#fff; padding:12px 22px; border-radius:12px; font-size:14px; font-weight:600; opacity:0; pointer-events:none; transition:.3s; z-index:300; border:1px solid #2f3a4a; box-shadow:0 6px 20px rgba(0,0,0,.5); }
   .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 </style>
@@ -121,7 +110,7 @@
   <div class="cars" id="cars"></div>
 </div>
 
-<!-- Окно ПОДРОБНОЙ ИНФОРМАЦИИ о машине -->
+<!-- Окно ПОДРОБНОЙ ИНФОРМАЦИИ -->
 <div class="modal-overlay" id="infoModal">
   <div class="modal-content">
     <div class="modal-title" id="infoTitle">Название</div>
@@ -133,12 +122,12 @@
   </div>
 </div>
 
-<!-- Окно ПОДТВЕРЖДЕНИЯ покупки -->
+<!-- Окно ПОДТВЕРЖДЕНИЯ ПОКУПКИ -->
 <div class="modal-overlay" id="payModal">
   <div class="modal-content">
     <div class="modal-title">Подтверждение</div>
     <div class="modal-text" id="payModalTitle">Вы уверены?</div>
-    <div class="confirm-price" id="payModalPrice">0 ₽</div>
+    <div class="detail-price" id="payModalPrice">0 ₽</div>
     
     <button class="confirm-btn btn-green" id="payWithCard">💳 Оплатить картой</button>
     <button class="confirm-btn btn-blue" id="payWithBonus">🎁 Оплатить бонусами</button>
@@ -150,7 +139,7 @@
 <div class="modal-overlay" id="depositModal">
   <div class="modal-content">
     <div class="modal-title">Мои Карты</div>
-    <div class="modal-text">Нажмите на карту, чтобы выбрать её для оплаты</div>
+    <div class="modal-text">Нажмите на карту, чтобы выбрать её</div>
     
     <div class="bank-card selected" id="card1">
       <div class="bank-card-top"><div class="chip"></div><div class="bank-name">VISA</div></div>
@@ -167,7 +156,7 @@
     <div class="bank-card credit" id="card3">
       <div class="bank-card-top"><div class="chip" style="background:#aaa;"></div><div class="bank-name" style="color:#ffb3b3;">CREDIT</div></div>
       <div class="bank-number">•••• •••• •••• 0000</div>
-      <div class="bank-balance">Кредитный лимит: <span id="card3Balance">0 ₽</span></div>
+      <div class="bank-balance">Долг: <span id="card3Balance">0 ₽</span></div>
     </div>
 
     <div style="margin-top: 20px; border-top: 1px solid #333; padding-top: 15px;">
@@ -177,6 +166,7 @@
       <button class="deposit-btn" data-amount="5000000"><span>+ 5 000 000 ₽</span><span>💵</span></button>
       <button class="deposit-btn" id="addBonusBtn"><span>🎁 + 100 000 бонусов</span><span>✨</span></button>
       <button class="deposit-btn" id="takeCreditBtn" style="color:#ff4d4d; border-color:#552b2b;"><span>💳 Взять кредит 1 000 000 ₽</span><span>⚠️</span></button>
+      <button class="deposit-btn" id="payCreditBtn" style="color:#22c55e; border-color:#16351a; display:none;"><span>Погасить долг</span><span>✅</span></button>
     </div>
     
     <button class="close-btn" id="closeDepositModal">Закрыть</button>
@@ -188,7 +178,7 @@
   <div class="modal-content">
     <div class="modal-title">Мой Гараж</div>
     <div class="modal-text" id="garageEmptyText" style="display:none;">У вас пока нет купленных машин</div>
-    <div class="modal-text" style="font-size:12px; margin-bottom:15px;">При возврате авто вы получаете 80% от его стоимости.</div>
+    <div class="modal-text" style="font-size:12px; margin-bottom:15px;">При возврате вы получаете 80% стоимости.</div>
     <div id="garageList"></div>
     <button class="close-btn" id="closeGarageModal">Закрыть</button>
   </div>
@@ -197,7 +187,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  // Заставка (показывается 1 раз за сессию)
+  // Заставка
   if (!sessionStorage.getItem('splashShown')) {
     document.getElementById('splashScreen').style.display = 'flex';
   } else {
@@ -211,32 +201,31 @@
     sessionStorage.setItem('splashShown', 'true');
   };
 
-  // База данных машин (Картинки подобраны строго по маркам)
+  // База данных (Картинки строго по маркам)
   const cars = [
     { id:1, name:"ВАЗ 2107", desc:"Классика советского автопрома. Бюджетный седан, идеально подходит для начинающих водителей или как донор запчастей.", specs:"1.6 л • 75 л.с. • МКПП • 2005 г.", price:100000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Lada_Riva_2107.jpg/800px-Lada_Riva_2107.jpg" },
     { id:2, name:"Daewoo Matiz", desc:"Компактный городской хэтчбек. Отличный выбор для города, очень экономичный и маневренный.", specs:"0.8 л • 51 л.с. • АКПП • 2010 г.", price:250000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Daewoo_Matiz_front_20080715.jpg/800px-Daewoo_Matiz_front_20080715.jpg" },
-    { id:3, name:"ВАЗ 2106 (Битый)", desc:"Аварийный автомобиль после ДТП. Находится в нерабочем состоянии, продается на запчасти или для восстановления.", specs:"1.6 л • На запчасти", price:50000, img:"https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&q=80" },
+    { id:3, name:"ВАЗ 2106 (Битый)", desc:"Аварийный автомобиль после ДТП. Находится в нерабочем состоянии, продается на запчасти.", specs:"1.6 л • На запчасти", price:50000, img:"https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&q=80" },
     { id:4, name:"Ford Focus (Разбит)", desc:"Разбит передок, но двигатель и коробка целы. Отличный вариант для тех, кто умеет ремонтировать.", specs:"1.8 л • 125 л.с. • 2008 г.", price:150000, img:"https://images.unsplash.com/photo-1590362891991-f776e747a588?w=800&q=80" },
     { id:5, name:"ВАЗ 2114", desc:"Популярный российский хэтчбек. Надежная подвеска и доступные запчасти.", specs:"1.6 л • 81 л.с. • 2012 г.", price:300000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Lada_2114_2012.jpg/800px-Lada_2114_2012.jpg" },
-    { id:6, name:"УАЗ «Буханка»", desc:"Легендарный микроавтобус повышенной проходимости. Идеален для бездорожья и путешествий.", specs:"2.7 л • 112 л.с. • 4WD • 2015 г.", price:800000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/UAZ-452_Buhanka.jpg/800px-UAZ-452_Buhanka.jpg" },
+    { id:6, name:"УАЗ «Буханка»", desc:"Легендарный микроавтобус повышенной проходимости. Идеален для бездорожья.", specs:"2.7 л • 112 л.с. • 4WD • 2015 г.", price:800000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/UAZ-452_Buhanka.jpg/800px-UAZ-452_Buhanka.jpg" },
     { id:7, name:"Yamaha YZF-R1", desc:"Спортивный мотоцикл с агрессивным дизайном и невероятной динамикой.", specs:"1.0 л • 200 л.с. • 2021 г.", price:1200000, img:"https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=800&q=80" },
     { id:8, name:"Harley-Davidson", desc:"Настоящий круизер для дальних поездок. Комфорт и стиль.", specs:"1.8 л • 90 л.с. • 2020 г.", price:1800000, img:"https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=800&q=80" },
     { id:9, name:"Kawasaki Ninja", desc:"Японский спортбайк. Скорость, управляемость и надежность.", specs:"1.0 л • 200 л.с. • 2022 г.", price:1500000, img:"https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=800&q=80" },
     { id:10, name:"ПАЗ Вектор Next", desc:"Современный российский автобус малого класса. Вмещает 25 пассажиров.", specs:"Дизель • 25 мест • 2021 г.", price:3200000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/PAZ_Vector_Next.jpg/800px-PAZ_Vector_Next.jpg" },
-    { id:11, name:"Toyota Camry", desc:"Бизнес-седан с комфортным салоном и плавным ходом. Лидер среди руководителей.", specs:"2.5 л • 200 л.с. • 2022 г.", price:3500000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/2018_Toyota_Camry_XSE.jpg/800px-2018_Toyota_Camry_XSE.jpg" },
+    { id:11, name:"Toyota Camry", desc:"Бизнес-седан с комфортным салоном и плавным ходом.", specs:"2.5 л • 200 л.с. • 2022 г.", price:3500000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/2018_Toyota_Camry_XSE.jpg/800px-2018_Toyota_Camry_XSE.jpg" },
     { id:12, name:"КамАЗ 5490", desc:"Тяжелый магистральный тягач. Перевезет любой груз.", specs:"Дизель • 400 л.с. • 2019 г.", price:4500000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/KAMAZ-5490_2014.jpg/800px-KAMAZ-5490_2014.jpg" },
-    { id:13, name:"BMW M4 Competition", desc:"Немецкий спорткар с мотором 3.0 литра и разгоном до сотни за 3.5 секунды.", specs:"3.0 л • 510 л.с. • 2023 г.", price:7500000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/BMW_M4_Competition_%28G82%29_IMG_4932.jpg/800px-BMW_M4_Competition_%28G82%29_IMG_4932.jpg" },
-    { id:14, name:"Toyota Supra MK4", desc:"Легендарный японский спорткар, известный по фильму «Форсаж». Тюнингованный мотор 2JZ.", specs:"3.0 л Turbo • 320 л.с. • 1998 г.", price:6000000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Toyota_Supra_MK4.jpg/800px-Toyota_Supra_MK4.jpg" },
-    { id:15, name:"Mercedes-Benz G-Class", desc:"Легендарный «Гелендваген». Внедорожник с брутальным дизайном и огромной мощностью.", specs:"4.0 л V8 • 585 л.с. • 2022 г.", price:12500000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Mercedes-Benz_G-Class_%28W463%29_2018.jpg/800px-Mercedes-Benz_G-Class_%28W463%29_2018.jpg" },
-    { id:16, name:"Porsche 911 Turbo S", desc:"Немецкий спорткар с невероятной динамикой и полным приводом.", specs:"3.8 л • 650 л.с. • 2022 г.", price:15900000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Porsche_992_Turbo_S_IMG_4936.jpg/800px-Porsche_992_Turbo_S_IMG_4936.jpg" },
-    { id:17, name:"Nissan GT-R", desc:"«Годзилла» японского автопрома. Полный привод и огромная мощность.", specs:"3.8 л V6 • 600 л.с. • 2023 г.", price:8200000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Nissan_GT-R_R35_2011.jpg/800px-Nissan_GT-R_R35_2011.jpg" },
-    { id:18, name:"Lamborghini Huracán", desc:"Итальянский суперкар с мотором V10. Невероятный звук и дизайн.", specs:"5.2 л V10 • 640 л.с. • 2022 г.", price:21000000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Lamborghini_Huracan_LP610-4.jpg/800px-Lamborghini_Huracan_LP610-4.jpg" },
-    { id:19, name:"Ferrari 488 GTB", desc:"Итальянский суперкар с мотором V8 и потрясающей управляемостью.", specs:"3.9 л V8 • 670 л.с. • 2021 г.", price:24500000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Ferrari_488_GTB_Genf_2015.jpg/800px-Ferrari_488_GTB_Genf_2015.jpg" },
-    { id:20, name:"McLaren 720S", desc:"Британский гиперкар с карбоновым монококом и невероятной аэродинамикой.", specs:"4.0 л V8 • 720 л.с. • 2022 г.", price:28000000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/McLaren_720S_Genf_2017.jpg/800px-McLaren_720S_Genf_2017.jpg" }
+    { id:13, name:"BMW M4 Competition", desc:"Немецкий спорткар с мотором 3.0 литра.", specs:"3.0 л • 510 л.с. • 2023 г.", price:7500000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/BMW_M4_Competition_%28G82%29_IMG_4932.jpg/800px-BMW_M4_Competition_%28G82%29_IMG_4932.jpg" },
+    { id:14, name:"Toyota Supra MK4", desc:"Легендарный японский спорткар, известный по фильму «Форсаж».", specs:"3.0 л Turbo • 320 л.с. • 1998 г.", price:6000000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Toyota_Supra_MK4.jpg/800px-Toyota_Supra_MK4.jpg" },
+    { id:15, name:"Mercedes-Benz G-Class", desc:"Легендарный «Гелендваген». Брутальный внедорожник.", specs:"4.0 л V8 • 585 л.с. • 2022 г.", price:12500000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Mercedes-Benz_G-Class_%28W463%29_2018.jpg/800px-Mercedes-Benz_G-Class_%28W463%29_2018.jpg" },
+    { id:16, name:"Porsche 911 Turbo S", desc:"Немецкий спорткар с невероятной динамикой.", specs:"3.8 л • 650 л.с. • 2022 г.", price:15900000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Porsche_992_Turbo_S_IMG_4936.jpg/800px-Porsche_992_Turbo_S_IMG_4936.jpg" },
+    { id:17, name:"Nissan GT-R", desc:"«Годзилла» японского автопрома.", specs:"3.8 л V6 • 600 л.с. • 2023 г.", price:8200000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Nissan_GT-R_R35_2011.jpg/800px-Nissan_GT-R_R35_2011.jpg" },
+    { id:18, name:"Lamborghini Huracán", desc:"Итальянский суперкар с мотором V10.", specs:"5.2 л V10 • 640 л.с. • 2022 г.", price:21000000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Lamborghini_Huracan_LP610-4.jpg/800px-Lamborghini_Huracan_LP610-4.jpg" },
+    { id:19, name:"Ferrari 488 GTB", desc:"Итальянский суперкар с потрясающей управляемостью.", specs:"3.9 л V8 • 670 л.с. • 2021 г.", price:24500000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Ferrari_488_GTB_Genf_2015.jpg/800px-Ferrari_488_GTB_Genf_2015.jpg" },
+    { id:20, name:"McLaren 720S", desc:"Британский гиперкар с карбоновым монококом.", specs:"4.0 л V8 • 720 л.с. • 2022 г.", price:28000000, img:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/McLaren_720S_Genf_2017.jpg/800px-McLaren_720S_Genf_2017.jpg" }
   ];
 
-  // Состояние (сохраняется в браузере)
-  let balance = parseInt(localStorage.getItem('salonBalance')) || 40000; // Начинаем с 40к
+  let balance = parseInt(localStorage.getItem('salonBalance')) || 40000;
   let bonuses = parseInt(localStorage.getItem('salonBonuses')) || 0; 
   let creditDebt = parseInt(localStorage.getItem('salonCredit')) || 0; 
   const bought = new Set(JSON.parse(localStorage.getItem('salonBought') || '[]'));
@@ -264,18 +253,18 @@
   }
 
   function render() {
-    // Шапка
     balEl.innerHTML = `${fmt(balance)} <span style="font-size:11px; color:#22c55e; margin-left: 4px;">+${fmt(bonuses)}</span>`;
     document.getElementById('card1Balance').textContent = fmt(balance);
     document.getElementById('card2Balance').textContent = fmt(balance);
-    document.getElementById('card3Balance').textContent = creditDebt > 0 ? `Долг: ${fmt(creditDebt)}` : 'Нет долга';
+    document.getElementById('card3Balance').textContent = fmt(creditDebt);
     
-    // Стилизация карт
     document.getElementById('card1').className = activeCard === 'card1' ? 'bank-card selected' : 'bank-card';
     document.getElementById('card2').className = activeCard === 'card2' ? 'bank-card mc selected' : 'bank-card mc';
     document.getElementById('card3').className = activeCard === 'card3' ? 'bank-card credit selected' : 'bank-card credit';
+    
+    // Показываем кнопку погашения кредита, если есть долг
+    document.getElementById('payCreditBtn').style.display = creditDebt > 0 ? 'flex' : 'none';
 
-    // Витрина
     carsEl.innerHTML = '';
     let availableCars = cars.filter(car => !bought.has(car.id));
     
@@ -287,10 +276,7 @@
       const div = document.createElement('div');
       div.className = 'car';
       div.onclick = (e) => {
-          // Если нажали на кнопку "Купить" - не открываем подробное окно
-          if (e.target.tagName !== 'BUTTON') {
-              openInfoModal(car.id);
-          }
+          if (e.target.tagName !== 'BUTTON') openInfoModal(car.id);
       };
       div.innerHTML = `
         <img src="${car.img}" alt="${car.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=800&q=80'">
@@ -305,7 +291,6 @@
       carsEl.appendChild(div);
     });
 
-    // Гараж
     const garageList = document.getElementById('garageList');
     const garageEmptyText = document.getElementById('garageEmptyText');
     garageList.innerHTML = '';
@@ -329,4 +314,114 @@
     }
   }
 
-  //
+  window.refundCar = (id) => {
+    const car = cars.find(c => c.id === id);
+    if (!car) return;
+    const refundAmount = Math.floor(car.price * 0.8);
+    if (confirm(`Вернуть ${car.name}?\nВы получите ${fmt(refundAmount)} (комиссия 20%).`)) {
+      balance += refundAmount;
+      bought.delete(id);
+      save(); render();
+      showToast(`Возврат: +${fmt(refundAmount)}`);
+    }
+  };
+
+  window.openInfoModal = (id) => {
+    const car = cars.find(c => c.id === id);
+    if (!car) return;
+    document.getElementById('infoTitle').textContent = car.name;
+    document.getElementById('infoImg').src = car.img;
+    document.getElementById('infoDesc').innerHTML = `${car.desc}<br><br><b>Характеристики:</b> ${car.specs}`;
+    document.getElementById('infoPrice').textContent = fmt(car.price);
+    document.getElementById('buyFromInfo').onclick = () => {
+        document.getElementById('infoModal').classList.remove('active');
+        openPayModal(id);
+    };
+    document.getElementById('infoModal').classList.add('active');
+  };
+
+  window.openPayModal = (id) => {
+    const car = cars.find(c => c.id === id);
+    if (!car || bought.has(id)) return;
+    currentBuyCar = car;
+    document.getElementById('payModalTitle').textContent = `Купить ${car.name}?`;
+    document.getElementById('payModalPrice').textContent = fmt(car.price);
+    document.getElementById('payModal').classList.add('active');
+  };
+
+  document.getElementById('closeInfoModal').onclick = () => document.getElementById('infoModal').classList.remove('active');
+  document.getElementById('closePayModal').onclick = () => document.getElementById('payModal').classList.remove('active');
+  document.getElementById('closeDepositModal').onclick = () => document.getElementById('depositModal').classList.remove('active');
+  document.getElementById('closeGarageModal').onclick = () => document.getElementById('garageModal').classList.remove('active');
+
+  document.getElementById('payWithCard').onclick = () => {
+    if (!currentBuyCar) return;
+    if (balance < currentBuyCar.price) {
+      showToast(`Не хватает ${fmt(currentBuyCar.price - balance)}`);
+      return;
+    }
+    balance -= currentBuyCar.price;
+    bonuses += currentBuyCar.price * 0.05;
+    bought.add(currentBuyCar.id);
+    save(); render();
+    document.getElementById('payModal').classList.remove('active');
+    showToast(`🎉 Куплено!`);
+  };
+
+  document.getElementById('payWithBonus').onclick = () => {
+    if (!currentBuyCar) return;
+    if (bonuses < currentBuyCar.price) {
+      showToast(`Не хватает бонусов`);
+      return;
+    }
+    bonuses -= currentBuyCar.price;
+    bought.add(currentBuyCar.id);
+    save(); render();
+    document.getElementById('payModal').classList.remove('active');
+    showToast(`🎉 Куплено за бонусы!`);
+  };
+
+  document.getElementById('walletBtn').onclick = () => document.getElementById('depositModal').classList.add('active');
+  document.getElementById('garageBtn').onclick = () => document.getElementById('garageModal').classList.add('active');
+
+  document.getElementById('card1').onclick = () => { activeCard = 'card1'; render(); };
+  document.getElementById('card2').onclick = () => { activeCard = 'card2'; render(); };
+  document.getElementById('card3').onclick = () => { activeCard = 'card3'; render(); };
+
+  document.querySelectorAll('.deposit-btn[data-amount]').forEach(btn => {
+    btn.onclick = () => {
+      const amount = parseInt(btn.dataset.amount);
+      balance += amount;
+      save(); render();
+      showToast(`+${fmt(amount)}`);
+    };
+  });
+
+  document.getElementById('addBonusBtn').onclick = () => {
+    bonuses += 100000;
+    save(); render();
+    showToast('+100 000 бонусов');
+  };
+
+  document.getElementById('takeCreditBtn').onclick = () => {
+    balance += 1000000;
+    creditDebt += 1000000;
+    save(); render();
+    showToast('💳 Кредит 1 000 000 ₽ получен');
+  };
+
+  document.getElementById('payCreditBtn').onclick = () => {
+    if (balance < creditDebt) {
+      showToast('Недостаточно средств для погашения');
+      return;
+    }
+    balance -= creditDebt;
+    creditDebt = 0;
+    save(); render();
+    showToast('✅ Кредит погашен!');
+  };
+
+  render();
+</script>
+</body>
+</html> 
