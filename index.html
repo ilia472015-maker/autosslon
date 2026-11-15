@@ -19,15 +19,16 @@
   #mainContent { display: none; padding-bottom: 30px; }
   #mainContent.visible { display: block; animation: fadeIn 0.5s ease; }
 
-  header { position: sticky; top:0; z-index:10; background: rgba(26,29,36,0.95); backdrop-filter: blur(10px); padding: 12px 16px; display:flex; justify-content:space-between; align-items:center; box-shadow: 0 2px 12px rgba(0,0,0,.5); gap: 10px; }
-  header h1 { font-size: 16px; letter-spacing:.5px; white-space: nowrap; }
+  header { position: sticky; top:0; z-index:10; background: rgba(26,29,36,0.95); backdrop-filter: blur(10px); padding: 12px 16px; display:flex; justify-content:space-between; align-items:center; box-shadow: 0 2px 12px rgba(0,0,0,.5); gap: 8px; }
+  header h1 { font-size: 15px; letter-spacing:.5px; white-space: nowrap; }
   header h1 span { color:#4da3ff; }
-  .header-right { display: flex; gap: 8px; align-items: center; }
-  .header-wallet, .header-garage { background:#1e2a3a; padding:8px 12px; border-radius:20px; font-size:13px; font-weight:600; color:#4da3ff; border:1px solid #2c4a6e; display:flex; align-items:center; gap:4px; cursor:pointer; transition: 0.2s; }
-  .header-wallet:active, .header-garage:active { transform: scale(0.95); }
+  .header-right { display: flex; gap: 6px; align-items: center; }
+  .header-btn { background:#1e2a3a; padding:8px 10px; border-radius:20px; font-size:12px; font-weight:600; color:#4da3ff; border:1px solid #2c4a6e; display:flex; align-items:center; gap:4px; cursor:pointer; transition: 0.2s; white-space: nowrap;}
+  .header-btn:active { transform: scale(0.95); }
+  .header-bonus { color: #ffd94d; border-color: #5c4a1e; background: #2a241e; }
   .header-garage { color: #ffd94d; border-color: #5c4a1e; background: #2a241e; }
 
-  /* ВКЛАДКИ КАТЕГОРИЙ */
+  /* ВКЛАДКИ */
   .categories { display: flex; gap: 10px; padding: 15px 16px 5px 16px; }
   .cat-btn { flex: 1; padding: 12px; background: #1c2029; border: 1px solid #2c3443; border-radius: 12px; color: #8b93a3; font-size: 14px; font-weight: 700; cursor: pointer; transition: 0.2s; text-align: center; }
   .cat-btn.active { background: #1e2a3a; color: #4da3ff; border-color: #4da3ff; box-shadow: 0 0 10px rgba(77,163,255,0.2); }
@@ -37,22 +38,23 @@
   @keyframes fadeIn { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:none;} }
   .car img { width:100%; height:200px; object-fit:cover; display:block; background: #232833; }
   
-  /* СЕРДЕЧКО НА КАРТОЧКЕ */
   .heart-btn { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.6); border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(4px); transition: 0.2s; z-index: 5;}
   .heart-btn:active { transform: scale(0.8); }
   .heart-btn.liked { color: #ff4d4d; }
 
   .car-info { padding:16px; }
-  .car-name { font-size:18px; font-weight:800; margin-bottom:6px; color: #fff; }
+  .car-name { font-size:18px; font-weight:800; margin-bottom:4px; color: #fff; }
+  .car-rating { font-size: 12px; color: #ffd94d; margin-bottom: 8px; }
   .car-desc { font-size:13px; color:#8b93a3; margin-bottom:14px; line-height: 1.4; }
   .car-bottom { display:flex; justify-content:space-between; align-items:center; gap:10px; }
   .price { font-size:18px; font-weight:800; color:#ffd94d; }
   .buy-btn { background:linear-gradient(135deg,#4da3ff,#2f7de0); border:none; color:#fff; padding:12px 22px; border-radius:12px; font-size:14px; font-weight:700; cursor:pointer; transition: transform .12s; flex-shrink:0; }
   .buy-btn:active { transform:scale(.94); }
 
+  /* Модалки */
   .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.3s; }
   .modal-overlay.active { display: flex; opacity: 1; }
-  .modal-content { background: #1c2029; width: 100%; max-width: 420px; border-radius: 24px; padding: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); border: 1px solid #2c3443; transform: translateY(20px); transition: transform 0.3s; max-height: 90vh; overflow-y: auto; }
+  .modal-content { background: #1c2029; width: 100%; max-width: 420px; border-radius: 24px; padding: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); border: 1px solid #2c3443; transform: translateY(20px); transition: transform 0.3s; max-height: 90vh; overflow-y: auto; position: relative;}
   .modal-overlay.active .modal-content { transform: translateY(0); }
   .modal-title { font-size: 20px; font-weight: 800; margin-bottom: 10px; text-align: center; }
   .modal-text { color: #8b93a3; text-align: center; margin-bottom: 20px; font-size: 14px; }
@@ -66,6 +68,7 @@
   .btn-green { background: #22c55e; color: #fff; box-shadow: 0 4px 15px rgba(34,197,94,0.4); }
   .btn-blue { background: #3b82f6; color: #fff; box-shadow: 0 4px 15px rgba(59,130,246,0.4); }
   .btn-grey { background: #2c3443; color: #fff; }
+  .btn-yellow { background: #ffd94d; color: #111; }
 
   .bank-card { background: linear-gradient(135deg, #2b3a55, #162135); border-radius: 16px; padding: 20px; margin-bottom: 15px; border: 2px solid #3d5073; position: relative; overflow: hidden; cursor: pointer; transition: 0.2s; }
   .bank-card:active { transform: scale(0.98); }
@@ -82,19 +85,23 @@
   .deposit-btn:active { background: #2c3443; transform: scale(0.98); }
   .deposit-btn span:last-child { color: #22c55e; }
 
-  /* ГАРАЖ И КНОПКА ВОЗВРАТА */
   .garage-item { display: flex; align-items: center; background: #232833; border-radius: 12px; padding: 10px; margin-bottom: 10px; border: 1px solid #333; gap: 10px; }
-  .garage-img { width: 70px; height: 50px; object-fit: cover; border-radius: 8px; flex-shrink: 0;}
+  .garage-img { width: 60px; height: 45px; object-fit: cover; border-radius: 8px; flex-shrink: 0;}
   .garage-info { flex-grow: 1; }
   .garage-name { font-size: 14px; font-weight: 700; margin-bottom: 2px;}
   .garage-price { font-size: 12px; color: #ffd94d; }
-  .refund-btn { background: #ef4444; border: none; color: #fff; padding: 10px; border-radius: 50%; font-size: 18px; font-weight: 700; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px;}
-  .refund-btn:active { transform: scale(0.9); }
+  .action-btns { display: flex; gap: 5px; }
+  .btn-refund { background: #ef4444; border: none; color: #fff; padding: 8px; border-radius: 8px; font-size: 14px; cursor: pointer; }
+  .btn-sell { background: #22c55e; border: none; color: #fff; padding: 8px; border-radius: 8px; font-size: 14px; cursor: pointer; }
 
   .close-btn { width: 100%; padding: 14px; background: transparent; border: none; color: #8b93a3; font-size: 15px; font-weight: 600; margin-top: 10px; cursor: pointer; }
 
-  .toast { position:fixed; top:20px; left:50%; transform:translateX(-50%) translateY(-20px); background:#232833; color:#fff; padding:12px 22px; border-radius:12px; font-size:14px; font-weight:600; opacity:0; pointer-events:none; transition:.3s; z-index:300; border:1px solid #2f3a4a; box-shadow:0 6px 20px rgba(0,0,0,.5); }
+  .toast { position:fixed; top:20px; left:50%; transform:translateX(-50%) translateY(-20px); background:#232833; color:#fff; padding:12px 22px; border-radius:12px; font-size:14px; font-weight:600; opacity:0; pointer-events:none; transition:.3s; z-index:300; border:1px solid #2f3a4a; box-shadow:0 6px 20px rgba(0,0,0,.5); text-align: center;}
   .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+  /* Рулетка */
+  .roulette-box { text-align: center; padding: 30px; background: #11151c; border-radius: 20px; border: 1px solid #333; margin-bottom: 20px;}
+  .roulette-slot { font-size: 48px; margin-bottom: 20px; }
 </style>
 </head>
 <body>
@@ -109,10 +116,9 @@
   <header>
     <h1>🏁 Авто<span>Рынок</span></h1>
     <div class="header-right">
-      <div class="header-garage" id="garageBtn">🏆 Гараж</div>
-      <div class="header-wallet" id="walletBtn">
-        <span id="balance">0 ₽</span>
-      </div>
+      <div class="header-btn header-bonus" id="bonusBtn">🎁 Бонус</div>
+      <div class="header-btn header-garage" id="garageBtn">🏆</div>
+      <div class="header-btn" id="walletBtn"><span id="balance">0 ₽</span></div>
     </div>
   </header>
 
@@ -183,9 +189,22 @@
   <div class="modal-content">
     <div class="modal-title">Мой Гараж</div>
     <div class="modal-text" id="garageEmptyText" style="display:none;">У вас пока нет купленных машин</div>
-    <div class="modal-text" style="font-size:12px; margin-bottom:15px;">Нажмите 🔄, чтобы сдать машину обратно и получить 80% стоимости.</div>
+    <div class="modal-text" style="font-size:12px; margin-bottom:15px;">🔄 Сдать за 80% | 💰 Продать за 100%</div>
     <div id="garageList"></div>
     <button class="close-btn" id="closeGarageModal">Закрыть</button>
+  </div>
+</div>
+
+<!-- Окно Бонуса -->
+<div class="modal-overlay" id="bonusModal">
+  <div class="modal-content">
+    <div class="modal-title">Ежедневный Бонус</div>
+    <div class="modal-text">Крутите рулетку и получайте деньги!</div>
+    <div class="roulette-box">
+      <div class="roulette-slot" id="rouletteResult">🎰</div>
+      <button class="confirm-btn btn-yellow" id="spinBtn">Крутить!</button>
+    </div>
+    <button class="close-btn" id="closeBonusModal">Закрыть</button>
   </div>
 </div>
 
@@ -205,42 +224,45 @@
     sessionStorage.setItem('splashShown', 'true');
   };
 
-  // База данных (type: 'car' - легковые, 'truck' - грузовые и мото)
+  // База данных (type: 'car' - легковые, 'truck' - грузовые/мото, rating - рейтинг)
   const cars = [
-    { id:1, type:'car', name:"ВАЗ 2107", desc:"Классика советского автопрома. Бюджетный седан.", specs:"1.6 л • 75 л.с. • МКПП • 2005 г.", price:100000, img:"https://placehold.co/600x400/1c2029/ffd94d?text=ВАЗ+2107" },
-    { id:2, type:'car', name:"Daewoo Matiz", desc:"Компактный городской хэтчбек. Отличный выбор для города.", specs:"0.8 л • 51 л.с. • АКПП • 2010 г.", price:250000, img:"https://placehold.co/600x400/1c2029/4da3ff?text=Daewoo+Matiz" },
-    { id:3, type:'car', name:"ВАЗ 2106 (Битый)", desc:"Аварийный автомобиль после ДТП.", specs:"1.6 л • На запчасти", price:50000, img:"https://placehold.co/600x400/1c2029/ff4d4d?text=ВАЗ+2106+Битый" },
-    { id:4, type:'car', name:"Ford Focus (Разбит)", desc:"Разбит передок, но двигатель цел.", specs:"1.8 л • 125 л.с. • 2008 г.", price:150000, img:"https://placehold.co/600x400/1c2029/ff4d4d?text=Ford+Focus+Разбит" },
-    { id:5, type:'car', name:"ВАЗ 2114", desc:"Популярный российский хэтчбек.", specs:"1.6 л • 81 л.с. • 2012 г.", price:300000, img:"https://placehold.co/600x400/1c2029/e2e8f0?text=ВАЗ+2114" },
-    { id:6, type:'truck', name:"УАЗ «Буханка»", desc:"Легендарный микроавтобус.", specs:"2.7 л • 112 л.с. • 4WD", price:800000, img:"https://placehold.co/600x400/1c2029/a3b3cc?text=УАЗ+Буханка" },
-    { id:7, type:'car', name:"Mercedes W124", desc:"Легендарная «Старая школа».", specs:"2.0 л • 136 л.с. • 1993 г.", price:450000, img:"https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80" },
-    { id:8, type:'car', name:"BMW E34", desc:"Классика 90-х. Задний привод.", specs:"2.5 л • 192 л.с. • 1994 г.", price:600000, img:"https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80" },
-    { id:9, type:'car', name:"Audi 80", desc:"Надежный немецкий седан.", specs:"1.8 л • 90 л.с. • 1991 г.", price:350000, img:"https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=80" },
-    { id:10, type:'car', name:"Honda Civic", desc:"Японский спорткар.", specs:"1.5 л Turbo • 200 л.с. • 2020 г.", price:1400000, img:"https://placehold.co/600x400/1c2029/222?text=Honda+Civic" },
-    { id:11, type:'truck', name:"Yamaha YZF-R1", desc:"Спортивный мотоцикл.", specs:"1.0 л • 200 л.с. • 2021 г.", price:1200000, img:"https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=800&q=80" },
-    { id:12, type:'truck', name:"Harley-Davidson", desc:"Настоящий круизер.", specs:"1.8 л • 90 л.с. • 2020 г.", price:1800000, img:"https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=800&q=80" },
-    { id:13, type:'truck', name:"ПАЗ Вектор Next", desc:"Современный автобус.", specs:"Дизель • 25 мест", price:3200000, img:"https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&q=80" },
-    { id:14, type:'car', name:"Toyota Camry", desc:"Бизнес-седан.", specs:"2.5 л • 200 л.с. • 2022 г.", price:3500000, img:"https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&q=80" },
-    { id:15, type:'truck', name:"КамАЗ 5490", desc:"Тяжелый тягач.", specs:"Дизель • 400 л.с.", price:4500000, img:"https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80" },
-    { id:16, type:'car', name:"BMW M4 Competition", desc:"Немецкий спорткар.", specs:"3.0 л • 510 л.с.", price:7500000, img:"https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80" },
-    { id:17, type:'car', name:"Toyota Supra MK4", desc:"Спорткар из «Форсажа».", specs:"3.0 л Turbo • 320 л.с.", price:6000000, img:"https://placehold.co/600x400/1c2029/fff?text=Toyota+Supra" },
-    { id:18, type:'car', name:"Mercedes-Benz G-Class", desc:"«Гелендваген».", specs:"4.0 л V8 • 585 л.с.", price:12500000, img:"https://images.unsplash.com/photo-1520031441872-265e4ff70366?w=800&q=80" },
-    { id:19, type:'car', name:"Porsche 911 Turbo S", desc:"Спорткар с огромной мощностью.", specs:"3.8 л • 650 л.с.", price:15900000, img:"https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80" },
-    { id:20, type:'car', name:"Nissan GT-R", desc:"«Годзилла».", specs:"3.8 л V6 • 600 л.с.", price:8200000, img:"https://placehold.co/600x400/1c2029/fff?text=Nissan+GT-R" },
-    { id:21, type:'car', name:"Lamborghini Huracán", desc:"Итальянский суперкар.", specs:"5.2 л V10 • 640 л.с.", price:21000000, img:"https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&q=80" },
-    { id:22, type:'car', name:"Ferrari 488 GTB", desc:"Итальянский суперкар.", specs:"3.9 л V8 • 670 л.с.", price:24500000, img:"https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=800&q=80" },
-    { id:23, type:'car', name:"McLaren 720S", desc:"Британский гиперкар.", specs:"4.0 л V8 • 720 л.с.", price:28000000, img:"https://images.unsplash.com/photo-1621135802920-133df287f89c?w=800&q=80" }
+    { id:1, type:'car', name:"ВАЗ 2107", desc:"Классика советского автопрома. Бюджетный седан.", specs:"1.6 л • 75 л.с. • МКПП • 2005 г.", price:100000, rating: 4.2, img:"https://images.unsplash.com/photo-1590522013916-719f9f8b8a1a?w=800&q=80" },
+    { id:2, type:'car', name:"Daewoo Matiz", desc:"Компактный городской хэтчбек. Отличный выбор для города.", specs:"0.8 л • 51 л.с. • АКПП • 2010 г.", price:250000, rating: 4.0, img:"https://images.unsplash.com/photo-1541443131876-44b03de101c5?w=800&q=80" },
+    { id:3, type:'car', name:"ВАЗ 2106 (Битый)", desc:"Аварийный автомобиль после ДТП. Продается на запчасти.", specs:"1.6 л • На запчасти", price:50000, rating: 3.1, img:"https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&q=80" },
+    { id:4, type:'car', name:"Ford Focus (Разбит)", desc:"Разбит передок, но двигатель и коробка целы.", specs:"1.8 л • 125 л.с. • 2008 г.", price:150000, rating: 3.5, img:"https://images.unsplash.com/photo-1590362891991-f776e747a588?w=800&q=80" },
+    { id:5, type:'car', name:"ВАЗ 2114", desc:"Популярный российский хэтчбек. Надежная подвеска.", specs:"1.6 л • 81 л.с. • 2012 г.", price:300000, rating: 4.4, img:"https://images.unsplash.com/photo-1596763233371-92dbf1cc45d8?w=800&q=80" },
+    { id:6, type:'truck', name:"УАЗ «Буханка»", desc:"Легендарный микроавтобус повышенной проходимости.", specs:"2.7 л • 112 л.с. • 4WD • 2015 г.", price:800000, rating: 4.8, img:"https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80" },
+    { id:7, type:'car', name:"Mercedes W124", desc:"Легендарная «Старая школа». Неубиваемый кузов.", specs:"2.0 л • 136 л.с. • 1993 г.", price:450000, rating: 4.9, img:"https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80" },
+    { id:8, type:'car', name:"BMW E34", desc:"Классика 90-х. Задний привод и отличная управляемость.", specs:"2.5 л • 192 л.с. • 1994 г.", price:600000, rating: 4.7, img:"https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80" },
+    { id:9, type:'car', name:"Audi 80", desc:"Надежный немецкий седан. Простой в обслуживании.", specs:"1.8 л • 90 л.с. • 1991 г.", price:350000, rating: 4.5, img:"https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=80" },
+    { id:10, type:'car', name:"Honda Civic", desc:"Современный японский спорткар. Отличная динамика.", specs:"1.5 л Turbo • 200 л.с. • 2020 г.", price:1400000, rating: 4.8, img:"https://images.unsplash.com/photo-1590362891991-f776e747a588?w=800&q=80" },
+    { id:11, type:'truck', name:"Yamaha YZF-R1", desc:"Спортивный мотоцикл с агрессивным дизайном.", specs:"1.0 л • 200 л.с. • 2021 г.", price:1200000, rating: 4.9, img:"https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=800&q=80" },
+    { id:12, type:'truck', name:"Harley-Davidson", desc:"Настоящий круизер для дальних поездок.", specs:"1.8 л • 90 л.с. • 2020 г.", price:1800000, rating: 4.6, img:"https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=800&q=80" },
+    { id:13, type:'truck', name:"Kawasaki Ninja", desc:"Японский спортбайк. Скорость и надежность.", specs:"1.0 л • 200 л.с. • 2022 г.", price:1500000, rating: 4.8, img:"https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=800&q=80" },
+    { id:14, type:'truck', name:"ПАЗ Вектор Next", desc:"Современный российский автобус малого класса.", specs:"Дизель • 25 мест • 2021 г.", price:3200000, rating: 4.1, img:"https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&q=80" },
+    { id:15, type:'car', name:"Toyota Camry", desc:"Бизнес-седан с комфортным салоном.", specs:"2.5 л • 200 л.с. • 2022 г.", price:3500000, rating: 4.7, img:"https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&q=80" },
+    { id:16, type:'truck', name:"КамАЗ 5490", desc:"Тяжелый магистральный тягач.", specs:"Дизель • 400 л.с. • 2019 г.", price:4500000, rating: 4.5, img:"https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80" },
+    { id:17, type:'car', name:"BMW M4 Competition", desc:"Немецкий спорткар с мотором 3.0 литра.", specs:"3.0 л • 510 л.с. • 2023 г.", price:7500000, rating: 5.0, img:"https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80" },
+    { id:18, type:'car', name:"Toyota Supra MK4", desc:"Легендарный японский спорткар из «Форсажа».", specs:"3.0 л Turbo • 320 л.с. • 1998 г.", price:6000000, rating: 4.9, img:"https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80" },
+    { id:19, type:'car', name:"Mercedes-Benz G-Class", desc:"Легендарный «Гелендваген».", specs:"4.0 л V8 • 585 л.с. • 2022 г.", price:12500000, rating: 4.9, img:"https://images.unsplash.com/photo-1520031441872-265e4ff70366?w=800&q=80" },
+    { id:20, type:'car', name:"Porsche 911 Turbo S", desc:"Немецкий спорткар с невероятной динамикой.", specs:"3.8 л • 650 л.с. • 2022 г.", price:15900000, rating: 5.0, img:"https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80" },
+    { id:21, type:'car', name:"Nissan GT-R", desc:"«Годзилла» японского автопрома.", specs:"3.8 л V6 • 600 л.с. • 2023 г.", price:8200000, rating: 4.9, img:"https://images.unsplash.com/photo-1590362891991-f776e747a588?w=800&q=80" },
+    { id:22, type:'car', name:"Lamborghini Huracán", desc:"Итальянский суперкар с мотором V10.", specs:"5.2 л V10 • 640 л.с. • 2022 г.", price:21000000, rating: 5.0, img:"https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&q=80" },
+    { id:23, type:'car', name:"Ferrari 488 GTB", desc:"Итальянский суперкар с потрясающей управляемостью.", specs:"3.9 л V8 • 670 л.с. • 2021 г.", price:24500000, rating: 5.0, img:"https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=800&q=80" },
+    { id:24, type:'car', name:"McLaren 720S", desc:"Британский гиперкар с карбоновым монококом.", specs:"4.0 л V8 • 720 л.с. • 2022 г.", price:28000000, rating: 5.0, img:"https://images.unsplash.com/photo-1621135802920-133df287f89c?w=800&q=80" }
   ];
 
+  // Состояние
   let balance = parseInt(localStorage.getItem('salonBalance')) || 40000;
   let bonuses = parseInt(localStorage.getItem('salonBonuses')) || 0; 
   let creditDebt = parseInt(localStorage.getItem('salonCredit')) || 0; 
   const bought = new Set(JSON.parse(localStorage.getItem('salonBought') || '[]'));
   const liked = new Set(JSON.parse(localStorage.getItem('salonLiked') || '[]'));
+  let lastBonusDate = localStorage.getItem('salonBonusDate') || "";
   
   let currentBuyCar = null;
   let activeCard = 'card1';
-  let currentCategory = 'car'; // 'car' или 'truck'
+  let currentCategory = 'car';
 
   const fmt = n => n.toLocaleString('ru-RU') + ' ₽';
   const balEl = document.getElementById('balance');
@@ -273,7 +295,6 @@
     document.getElementById('card3').className = activeCard === 'card3' ? 'bank-card credit selected' : 'bank-card credit';
     document.getElementById('payCreditBtn').style.display = creditDebt > 0 ? 'flex' : 'none';
 
-    // Фильтрация по категориям
     document.getElementById('catCars').className = currentCategory === 'car' ? 'cat-btn active' : 'cat-btn';
     document.getElementById('catTrucks').className = currentCategory === 'truck' ? 'cat-btn active' : 'cat-btn';
 
@@ -296,6 +317,7 @@
         <img src="${car.img}" alt="${car.name}" loading="lazy" onerror="this.src='https://placehold.co/600x400/1c2029/4da3ff?text=Photo+Not+Found'">
         <div class="car-info">
           <div class="car-name">${car.name}</div>
+          <div class="car-rating">⭐ ${car.rating.toFixed(1)} / 5.0</div>
           <div class="car-desc">${car.specs}</div>
           <div class="car-bottom">
             <div class="price">${fmt(car.price)}</div>
@@ -321,16 +343,18 @@
               <div class="garage-name">${car.name}</div>
               <div class="garage-price">Цена: ${fmt(car.price)}</div>
             </div>
-            <button class="refund-btn" onclick="refundCar(${car.id})" title="Сдать обратно">🔄</button>
+            <div class="action-btns">
+              <button class="btn-refund" onclick="refundCar(${car.id})" title="Сдать за 80%">🔄</button>
+              <button class="btn-sell" onclick="sellCar(${car.id})" title="Продать за 100%">💰</button>
+            </div>
           </div>
         `;
       });
     }
   }
 
-  // Лайки
   window.toggleLike = (event, id) => {
-    event.stopPropagation(); // Чтобы не открывалось окно машины
+    event.stopPropagation();
     if (liked.has(id)) {
       liked.delete(id);
       showToast('Убрано из избранного');
@@ -341,12 +365,11 @@
     save(); render();
   };
 
-  // Возврат
   window.refundCar = (id) => {
     const car = cars.find(c => c.id === id);
     if (!car) return;
     const refundAmount = Math.floor(car.price * 0.8);
-    if (confirm(`Сдать ${car.name} обратно?\nВы получите ${fmt(refundAmount)} (комиссия 20%).`)) {
+    if (confirm(`Сдать ${car.name} обратно?\nВы получите ${refundAmount.toLocaleString()} ₽ (комиссия 20%).`)) {
       balance += refundAmount;
       bought.delete(id);
       save(); render();
@@ -354,7 +377,20 @@
     }
   };
 
-  // Окна
+  window.sellCar = (id) => {
+    const car = cars.find(c => c.id === id);
+    if (!car) return;
+    if (confirm(`Выставить ${car.name} на продажу за полную стоимость?\n(Займет 5 секунд)`)) {
+      showToast(`⏳ Ищем покупателя на ${car.name}...`);
+      setTimeout(() => {
+        balance += car.price;
+        bought.delete(id);
+        save(); render();
+        showToast(`💰 Продано! +${fmt(car.price)}`);
+      }, 5000);
+    }
+  };
+
   window.openInfoModal = (id) => {
     const car = cars.find(c => c.id === id);
     if (!car) return;
@@ -389,7 +425,6 @@
   document.getElementById('closeDepositModal').onclick = () => document.getElementById('depositModal').classList.remove('active');
   document.getElementById('closeGarageModal').onclick = () => document.getElementById('garageModal').classList.remove('active');
 
-  // Кнопки покупки
   document.getElementById('payWithCard').onclick = () => {
     if (!currentBuyCar) return;
     if (balance < currentBuyCar.price) {
@@ -401,7 +436,7 @@
     bought.add(currentBuyCar.id);
     save(); render();
     document.getElementById('payModal').classList.remove('active');
-    showToast(`🎉 Куплено!`);
+    showToast(`🎉 Куплено! Начислен кэшбэк`);
   };
 
   document.getElementById('payWithBonus').onclick = () => {
@@ -417,11 +452,9 @@
     showToast(`🎉 Куплено за бонусы!`);
   };
 
-  // Вкладки категорий
   document.getElementById('catCars').onclick = () => { currentCategory = 'car'; render(); };
   document.getElementById('catTrucks').onclick = () => { currentCategory = 'truck'; render(); };
 
-  // Меню кошелька и гаража
   document.getElementById('walletBtn').onclick = () => document.getElementById('depositModal').classList.add('active');
   document.getElementById('garageBtn').onclick = () => document.getElementById('garageModal').classList.add('active');
 
@@ -460,6 +493,40 @@
     creditDebt = 0;
     save(); render();
     showToast('✅ Кредит погашен!');
+  };
+
+  // ЕЖЕДНЕВНЫЙ БОНУС (РУЛЕТКА)
+  document.getElementById('bonusBtn').onclick = () => {
+    const today = new Date().toDateString();
+    if (lastBonusDate === today) {
+      showToast('Вы уже получали бонус сегодня! Приходите завтра 😊');
+      return;
+    }
+    document.getElementById('bonusModal').classList.add('active');
+    document.getElementById('rouletteResult').textContent = '🎰';
+    document.getElementById('spinBtn').style.display = 'block';
+  };
+
+  document.getElementById('closeBonusModal').onclick = () => document.getElementById('bonusModal').classList.remove('active');
+
+  document.getElementById('spinBtn').onclick = () => {
+    document.getElementById('spinBtn').style.display = 'none';
+    const slot = document.getElementById('rouletteResult');
+    let count = 0;
+    const interval = setInterval(() => {
+      slot.textContent = ['💵', '💰', '💎', '🎁'][Math.floor(Math.random() * 4)];
+      count++;
+      if (count > 15) {
+        clearInterval(interval);
+        // Рандомный приз от 50к до 2 млн
+        const winAmount = (Math.floor(Math.random() * 20) + 1) * 50000 + 50000;
+        slot.textContent = `🎉 ${winAmount.toLocaleString()} ₽!`;
+        balance += winAmount;
+        lastBonusDate = new Date().toDateString();
+        localStorage.setItem('salonBonusDate', lastBonusDate);
+        save(); render();
+      }
+    }, 100);
   };
 
   render();
